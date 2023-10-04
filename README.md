@@ -10,7 +10,7 @@ If you see divergence with nvidia-smi, set variable in config (in MB)
 
 ## Setup
 
-Create venv and install requirements.
+Create venv and install requirements. Tested with py3.8 and py3.10.
 
 Next, you have to create a `config.json` file in this directory containing the bot token and a list of user ids that the bot should send messages to:
 
