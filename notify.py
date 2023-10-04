@@ -38,7 +38,7 @@ class NotifyBot:
             exit(1)
 
         self.deviceCount = pynvml.nvmlDeviceGetCount()
-        self.states = ["free"] * self.deviceCount
+        self.states = [None] * self.deviceCount
         self.utilization_threshold = config["utilization_threshold"]
         self.divergence_with_nvidia_smi = config["divergence_with_nvidia_smi"]
 
@@ -73,14 +73,14 @@ class NotifyBot:
                 handle = pynvml.nvmlDeviceGetHandleByIndex(index)
                 info = pynvml.nvmlDeviceGetMemoryInfo(handle)
                 used_mb = info.used / 1024 / 1024 - self.divergence_with_nvidia_smi
-                if used_mb <= self.utilization_threshold and self.states[index] == "busy":
+                if used_mb <= self.utilization_threshold and (self.states[index] == "busy" or self.states[index] == None):
                     for chat_id in self._whitelist:
                         try:
                             self._updater.bot.send_message(chat_id, f"The GPU{index} is available", parse_mode=telegram.ParseMode.MARKDOWN)
                         except telegram.error.Unauthorized:
                             print("Unauthorized for", chat_id)
                     self.states[index] = "free"
-                elif used_mb >= self.utilization_threshold and self.states[index] == "free":
+                elif used_mb >= self.utilization_threshold and (self.states[index] == "free" or self.states[index] == None):
                     for chat_id in self._whitelist:
                         try:
                             self._updater.bot.send_message(chat_id, f"The GPU{index} is in use", parse_mode=telegram.ParseMode.MARKDOWN)
