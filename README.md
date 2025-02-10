@@ -16,7 +16,6 @@ Next, you have to create a `config.json` file in this directory containing the b
 
 ```json
 {
-    "token": "1008150085:AAHea1JBSof0yEVRrHfkbL2W_fDg9xEs-bE",
     "whitelist": [
         123456789,
         987654321
@@ -31,3 +30,9 @@ If you don't know how to set up a bot or get the bot token, take a look at https
 If you start a chat with the bot and your user id is not listed in the whitelist, the bot will tell you:
 
 > You are not yet on the whitelist. Add 987654321 to your config to receive notifications from me
+
+## Run
+
+```python
+API_TOKEN=... python3 notify.py
+```

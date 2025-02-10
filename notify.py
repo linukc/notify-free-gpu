@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 
+import os
 import json
 import telegram
 from telegram.ext import Updater, CommandHandler
@@ -31,7 +32,7 @@ class NotifyBot:
         try:
             with open("config.json", "r") as config_file:
                 config = json.load(config_file)
-                token = config["token"]
+                token = os.environ["API_TOKEN"]
                 self._whitelist = config["whitelist"]
         except FileNotFoundError:
             print("You need to have a config.json file in this directory")
